@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 boolean compress = data.getBooleanExtra(ImagePicker.EXTRA_COMPRESS, true);
 
                 ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+
+                //可以返还多张图片，需要时可以处理
                 for (ImageItem imageItem : images) {
                     boolean isGif = isGifFile(imageItem.path);
                     if (isGif) {
