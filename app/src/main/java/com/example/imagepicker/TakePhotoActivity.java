@@ -26,18 +26,13 @@ import java.io.IOException;
 public class TakePhotoActivity extends AppCompatActivity {
     private JCameraView mJCameraView;
     public static final String MODE = "mode";
-    public static final int MODE_RECORDER_ONLY = 0x102;
-    public static final int MODE_CAPTURE_ONLY = 0x101;
-    public static final int MODE_CAPTURE_AND_RECORDER = 0x103;
+    public static final int MODE_CAPTURE_ONLY = 0x101;      //只能拍照
+    public static final int MODE_RECORDER_ONLY = 0x102;      //只能录像
+    public static final int MODE_CAPTURE_AND_RECORDER = 0x103;  //两者都可以
 //    public static final int BUTTON_STATE_ONLY_CAPTURE = 0x101;      //只能拍照
 //    public static final int BUTTON_STATE_ONLY_RECORDER = 0x102;     //只能录像
 //    public static final int BUTTON_STATE_BOTH = 0x103;              //两者都可以
 
-
-    public static String VIDEO_SAVE_DIR = Environment.getExternalStorageDirectory().getPath() + "/my/video";
-    public static String AUDIO_SAVE_DIR = Environment.getExternalStorageDirectory().getPath() + "/my/audio";
-    public static String PHOTO_SAVE_DIR = Environment.getExternalStorageDirectory().getPath() + "/my/photo";
-    public static String FILE_SAVE_DIR = Environment.getExternalStorageDirectory().getPath() + "/my/file";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,12 +47,12 @@ public class TakePhotoActivity extends AppCompatActivity {
         mJCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath());
         //(0.0.8+)设置手动/自动对焦，默认为自动对焦
         //设置小视频保存路径
-        File file = new File(VIDEO_SAVE_DIR);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
 
-        int mode = getIntent().getIntExtra(MODE, MODE_CAPTURE_AND_RECORDER);
+        createDIR();
+
+        int mode = getIntent().getIntExtra(MODE, MODE_CAPTURE_ONLY);
+        //int mode = getIntent().getIntExtra(MODE, MODE_CAPTURE_ONLY);
+//        int mode = getIntent().getIntExtra(MODE, MODE_CAPTURE_AND_RECORDER);
         mJCameraView.setFeatures(mode);
         mJCameraView.setSaveVideoPath(VIDEO_SAVE_DIR);
         mJCameraView.setJCameraLisenter(new JCameraListener() {
@@ -85,6 +80,36 @@ public class TakePhotoActivity extends AppCompatActivity {
         });
     }
 
+    public static String package_name = TakePhotoActivity.class.getPackage().getName();
+    public static String ext_cache_root_dir = Environment.getExternalStorageDirectory().getPath() + File.separator + package_name;
+    public static String VIDEO_SAVE_DIR =  ext_cache_root_dir + "/video";
+    public static String AUDIO_SAVE_DIR = ext_cache_root_dir + "/audio";
+    public static String PHOTO_SAVE_DIR = ext_cache_root_dir + "/photo";
+    public static String FILE_SAVE_DIR = ext_cache_root_dir + "/file";
+
+    /**
+     * 创建目录
+     */
+    public static void createDIR() {
+        File file1 = new File(VIDEO_SAVE_DIR);
+        if (!file1.exists()) {
+            file1.mkdirs();
+        }
+        File file2 = new File(AUDIO_SAVE_DIR);
+        if (!file2.exists()) {
+            file2.mkdirs();
+        }
+        File file3 = new File(PHOTO_SAVE_DIR);
+        if (!file3.exists()) {
+            file3.mkdirs();
+        }
+        File file4 = new File(FILE_SAVE_DIR);
+        if (!file4.exists()) {
+            file4.mkdirs();
+        }
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -103,7 +128,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     public String saveBitmap(Bitmap bm, String dir) {
         String path = "";
-        File f = new File(dir, "my_" + SystemClock.currentThreadTimeMillis() + ".png");
+        File f = new File(dir, SystemClock.currentThreadTimeMillis() + ".png");
         if (f.exists()) {
             f.delete();
         }

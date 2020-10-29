@@ -55,7 +55,6 @@ public class ImagePicker implements Serializable {
         Intent intent = new Intent(context, ImageGridActivity.class);
         intent.putExtra("multiMode", multiMode);
         intent.putExtra("limit", limit);
-        intent.putExtra("showCamera", showCamera);
         return intent;
     }
 }

@@ -10,8 +10,15 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="updatePortrait"
+        android:text="单选"
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="pick_image"
-        android:text="pick_image"
+        android:text="多选"
         android:textAllCaps="false" />
 
 
@@ -20,6 +27,13 @@
         android:layout_height="wrap_content"
         android:onClick="take_photo"
         android:text="take_photo"
+        android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="take_photo_2"
+        android:text="take_photo_2"
         android:textAllCaps="false" />
 
     <ImageView
