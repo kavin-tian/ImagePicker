@@ -8,11 +8,18 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="pickImage"
-        android:text="pickImage"
+        android:onClick="pick_image"
+        android:text="pick_image"
+        android:textAllCaps="false" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="take_photo"
+        android:text="take_photo"
         android:textAllCaps="false" />
 
     <ImageView
